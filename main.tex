@@ -1,0 +1,490 @@
+
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{placeins}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{gensymb}
+\usepackage{lipsum} % remove this if not needed, used only for testing
+
+\geometry{margin=2cm}  % slightly more margin than 1.5cm so wrapfig has room
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection.}{0.5em}{}
+
+% Reduce space above section titles slightly
+\titlespacing{\section}{0pt}{10pt}{6pt}
+
+\title{\textbf{Introduction to Suspension Design}}
+\vspace{-10mm}
+\author{}
+\date{}
+
+\begin{document}
+
+% TITLE / INDEX PAGE
+\begin{titlepage}
+    \centering
+    \vspace*{2.5cm}
+
+    {\Huge\bfseries Introduction to Suspension Design\par}
+    \vspace{0.5cm}
+    {\large An Introductory Guide to 
+    
+    ATV Double Wishbone Suspension Geometry\par}
+
+    \vspace{3cm}
+
+    {\large\itshape Abhijeet Jawlekar\par}
+    {\normalsize abhijeetjawlekar111@gmail.com\par}
+    {\normalsize Walchand collage of engineering, Sangli - Team Aaryans \par}
+
+    \vfill
+
+    {\normalsize August 15, 2026 \par}
+
+\end{titlepage}
+
+\maketitle
+
+\vspace{-20mm}
+The suspension system serves two primary purposes. First, it absorbs riding vibrations to enhance rider comfort. Second, it cushions the sudden shocks from dynamic road loads before they reach the chassis, allowing the chassis itself to be designed lighter and less bulky.
+
+There are 3 major aspects of suspension design:
+\begin{enumerate}
+    \item Geometry and Parameters (Typically 4 bar chain)
+    \item Static Analysis of Forces and Spring
+    \item Frequency/Vibration (Dynamic Analysis)
+\end{enumerate}
+
+Now let us start with understanding the geometry of wheel and double wishbone suspension.
+
+\textit{Note: This is not a comprehensive document to cover all things related to suspension.
+This is just a guide for introducing the reader to ATV double wishbone type of suspension
+and developing the thought process about suspension design.}
+
+% ─────────────────────────────────────────────────────────────────
+% KEY RULE: wrapfigure must be placed INSIDE a paragraph that has
+% enough lines to wrap around the image. Never place it at the
+% very start of a section before any text, or at a section break.
+% Put the \begin{wrapfigure} a few words into the paragraph body.
+% ─────────────────────────────────────────────────────────────────
+
+\section{Camber}
+
+% Image is on the LEFT, text wraps on the RIGHT.
+% Width = 0.42\textwidth leaves 0.58\textwidth for the text column —
+% enough for comfortable wrapping at 2cm margins on A4.
+\begin{wrapfigure}{l}{0.5\textwidth}
+    \vspace{-6pt}            % pull figure up slightly to align with section title
+    \centering
+    \includegraphics[width=0.48\textwidth]{camber.png}
+    \vspace{-6pt}
+    \caption{Showing $+$ve camber}
+    \label{fig:camber}
+    \vspace{-6pt}            % reduce gap below caption before next paragraph
+\end{wrapfigure}
+The \textbf{Camber} is the angle of the tyre central axis with the normal to the
+ground. The normal to the ground need not always be vertical --- on a banked road, for
+example, it is inclined. 
+Camber is measured in the front view of the vehicle.
+A \textit{positive camber} means the top of the tyre leans outward (away from the vehicle
+centre), while \textit{negative camber} means the top leans inward. The ideal static value
+is $\ang{0}$.
+but small deviations are deliberately introduced to compensate for dynamic
+loading during cornering and braking, as discussed in Section~\ref{sec:effects}.
+
+\section{Toe}
+
+% Same structure: image left, text wraps right.
+\begin{wrapfigure}{l}{0.5\textwidth}
+    \vspace{-6pt}
+    \centering
+    \includegraphics[width=0.48\textwidth, height=6cm, keepaspectratio]{toe_top.png}
+    \caption{Showing $+$ve toe (top view)}
+    \label{fig:toe}
+    \vspace{-6pt}
+\end{wrapfigure}
+The \textbf{Toe} is the angle of the tyre central axis (seen from the top view)
+with the central axis of the vehicle. When the fronts of the tyres point inward toward
+each other, it is called \textit{toe-in} (positive toe). When they point outward, it is called \textit{toe-out} (negative toe). Toe directly affects tyre wear, stability, and the steering response of the vehicle. Like camber, the ideal static value
+is $\ang{0}$, but a small static toe is set to counteract deflections caused in real operating riding conditions.
+
+% \par
+% \null
+\FloatBarrier
+\clearpage
+
+\section{Kingpin \& Scrub Radius}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.7]{scrub.png}
+    \caption{Showing $+$ve and $-$ve scrub radius}
+    \label{fig:kingpin}
+\end{figure}
+
+Now, focusing on the general geometry of double wishbone suspension: let points 1 and 2
+be the upper and lower ball joints respectively. The axis passing through points 1 and 2
+is the \textbf{kingpin axis}, and its angle with respect to the tyre central line is the
+\textbf{kingpin angle} (again, need not always be vertical).
+
+The kingpin is fixed. The physical significance of the kingpin is that the tyre rotates
+about this axis while turning, and the point $2'$ on the ground is stationary with respect
+to turning, as it lies on the intersection of the kingpin axis and the ground.
+
+The area of the contact patch of the tyre on the ground appears to rotate about point
+$2'$. The friction force and normal force are distributed over this area (not
+uniformly --- the central region will have higher values). For simplicity in calculation,
+we assume the net effect at a point $o'$, i.e., the normal force is concentrated at $o'$
+and hence friction also acts there.
+
+The distance $r= 2'o'$ is called the \textbf{scrub radius}. We use this to find:
+\[
+    \tau_{\text{friction}} = f \cdot r, \qquad f = F_{\text{friction}} \leq \mu_{\text{static}} \cdot N
+\]
+
+\begin{itemize}
+    \item If point $2'$ is towards the vehicle, it is a \textbf{positive scrub}.
+    \item If $2'$ is beyond $o'$, it is a \textbf{negative scrub}.
+    \item Similarly, camber and toe can each be positive or negative.
+\end{itemize}
+
+\section{Castor}
+
+\begin{wrapfigure}{l}{0.4\textwidth}
+    \vspace{-6pt}
+    \centering
+    \includegraphics[width=0.37\textwidth]{castor.png}
+    \vspace{-6pt}
+    \caption{$+$ve and $-$ve castor}
+    \label{fig:castor}
+\end{wrapfigure}
+
+The \textbf{castor angle} is the inclination of the kingpin axis as seen from the
+\textit{side view} of the vehicle. Upper and lower ball joints need not be vertically
+aligned --- the kingpin axis can be tilted forward or backward in the longitudinal plane.
+This projection of the kingpin axis in the side-view plane is called castor.
+
+\FloatBarrier
+\clearpage
+
+From the above discussion, it is clear that the length $l_2$ (kingpin) seen in the front
+view is not its true length; neither are the lengths seen in the side and top views.
+Similarly, the scrub $2'o'$ seen from the front or side is not the true scrub --- the top
+view gives its true measure since it lies on the ground plane.
+
+These three-dimensional parameters make analysis more complex, since planar 2D mechanism
+analysis is more straightforward. Hence we use software tools for accurate analysis;
+otherwise, an approximate 2D analysis using pen and paper is also feasible in fact we will walk through approximate 2D analysis of the suspension geometry.
+But what is the need to adjust these parameters? On what basis can we say that we need +2 degree camber or -ve toe or can comment on castor?
+
+\section{Why Adjust These Parameters?}
+
+The ideal case of driving corresponds to $0 \degree$ camber, $0\degree$ castor, and $0\degree$ toe.
+However, in real-world conditions, various forces and moments act on the vehicle ---
+gravitational force, bumps, braking force, friction, centrifugal force during cornering,
+etc. Additionally, micro-play in joints causes deviations from this ideal $(0, 0, 0)$
+state. Thus, we intentionally introduce a small static error in geometry so that in actual
+running conditions these deviations are compensated toward $(0, 0, 0)$ Not exactly, and not every single time — rather, it's a golden mean across the expected riding conditions that drives the real need to tune these parameters.
+
+If you know your vehicle will only run on flat roads, you can tune specifically for that
+condition. A better understanding of the expected riding conditions helps you tune these
+parameters more effectively.
+
+\section{Effects of Suspension Geometry Parameters}
+\label{sec:effects}
+let's have an overview on key parameters:
+
+\subsection{Scrub Radius}
+\begin{wrapfigure}{l}{0.38\textwidth}
+    \vspace{-6pt}
+    \centering
+    \includegraphics[width=0.36\textwidth]{turning_tyre_patch.png}
+    \caption{Torque arm $2'o'$ created by the scrub radius during steering}
+    \label{fig: turning tyre patch}
+\end{wrapfigure}
+Scrub comes into picture primarily while turning. The contact patch appears to rotate
+about point $2'$, and the net friction is assumed to act at the central point $o'$.
+As the distance $o'2'$ increases, the torque due to friction increases, and the driver
+needs more effort to steer the wheel.
+
+
+\textbf{Effect of + vs- Scrub : Uneven Braking Case:}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.42\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{uneven_breaking.png}
+        \caption{Top view: uneven braking}
+        \label{fig:tie_top_view}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.42\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{pos_neg_scrub.png}
+        \caption{Moment due to $f$ for + vs - scrub}
+        \label{fig:wheel_fbd}
+    \end{subfigure}
+    \caption{Effect of scrub-radius sign on directional stability during uneven (split-µ) braking}
+    \label{fig:kingpin}
+\end{figure}
+If we only consider steering efforts, direction of the scrub doesn't matter as long as absolute value of scrub radius is the same But,
+Consider a scenario where the right brake is weaker than the left, and you attempt a
+braking test at 40--45~km/h. When the brake is applied, the left wheel locks while the
+right continues slowly rolling. The vehicle will tend to turn leftward. Let:
+\[
+    f = f_L - f_R
+\]
+where $f_L$ is the sliding friction force (left, locked wheel) and $f_R$ is the rolling + slight sliding
+friction force (right wheel).
+
+Now focus on the left wheel as $f_L$ is the dominating force
+
+
+\begin{itemize}
+    \item \textbf{Positive scrub}: the net force $f$ produces a moment that tries to
+          turn the wheel further leftward ---> worsening the instability.
+    \item \textbf{Negative scrub}: the moment due to $f$ tries to rotate the wheel
+          rightward ---> helping the vehicle maintain straight-line direction.
+\end{itemize}
+
+Therefore, a \textbf{small negative scrub is desirable} for braking stability. In practice
+it's sometimes difficult to achieve due to wheel assembly packaging constraints, so we try to keep
+scrub as small as possible.
+
+\textit{Exercise: Consider the case of constant acceleration of FWD \textit{(fornt wheel drive)} wheel. What will be the effect of
+positive and negative scrub? Which one is desirable here?}
+
+\subsection{Toe}
+
+Toe is the angle between the ATV's centreline and tyre orientation seen from the top view.
+Ideally we expect zero toe in almost all riding conditions but then, why do we keep some static toe? what is the effect of +ve and -ve toe on the vehicle performance? let's try to answer these questions by considering few simple scenarios.
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.58\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{tie_top_view.png}
+        \caption{Top view}
+        \label{fig:tie_top_view}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{wheel_fbd.png}
+        \caption{Wheel FBD}
+        \label{fig:wheel_fbd}
+    \end{subfigure}
+    \caption{Top view and wheel free-body diagram used for toe analysis}
+    \label{fig:kingpin}
+\end{figure}
+
+\newpage
+\textbf{Analysis for the front tyre (No drive torque):}
+
+Assume the front wheel rolling at constant angular velocity $\omega$, so net torque $= 0$:
+\[
+    f \cdot r = N \cdot x
+\]
+Here the normal reaction $N$ shifts forward of $o'$ due to contact patch deformation,
+and the friction force $f$ acts rearward. Now, see in the fig(a) This rearward friction creates a moment about the
+kingpin axis that tends to turn the wheel toward negative toe (toe-out) if scrub is positive. The tie rod
+resists this with a compressive force. One can argue that the force $F$ also has the opposite moment on the wheel but this is not the case. Actually $F$ is the resultant of forces $F_1$, $F_2$ from upper and lower ball joint respectively and hence does not create any moment about the ball joints.
+
+But now imagine what will be the effect of $f$ if scrub is negative - this may change the case One should follow the approach like this by analysing different parameters and drawing FBD.
+
+\textit{Key insight:} Minimum scrub gives stability during braking, requires less steering
+effort, and reduces the force in the tie rod.
+
+\subsection{Castor}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth,keepaspectratio]{castor.png}
+        \caption{Castor: Side view}
+        \label{fig:castor_side_view}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth,keepaspectratio]{turning.png}
+        \caption{Turning: Top view}
+        \label{fig:turning_top_view}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.35\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth,keepaspectratio]{centripital.png}
+        \caption{Wheel patch FBD}
+        \label{fig:wheel_patch_fbd}
+    \end{subfigure}
+    \caption{Castor geometry: side-view, top-view during turning, and wheel-patch FBD showing cornering forces}
+    \label{fig:castor}
+\end{figure}
+
+Castor is the inclination of the kingpin axis in the side view. During cornering,
+centripetal friction forces $F_{1c}$ (inner tyre) and $F_{2c}$ (outer tyre) act at
+the contact patches,
+along with backward friction on front wheels(non-driving) and forward friction on rear wheels(driving),
+
+Now see the figure (b) and (c). imagine, you are taking a left turn $F_{1c}$ and $F_{2c}$ will act on $O_1$ and $O_2$ respectively towards center of curve $C$ 
+with:
+\[
+    F_{2c} > F_{1c}
+\]
+since the outer tyre carries more load while turning. 
+
+Consider the following cases:
+\begin{itemize}
+    \item \textbf{Positive castor}: $2'$ is the point of intersection of kingpin and ground. the moments due to $F_{1c}$ and $F_{2c}$ about $2'$
+          are clockwise, tending to straighten the wheel --- giving an
+          \textbf{automatic self-straightening effect}.
+    \item \textbf{Negative castor}: $2''$ is the point of intersection of kingpin and ground $F_{1c}$ and $F_{2c}$ tend to oversteer the tyre.
+\end{itemize}
+generally in road cars $+ve$ castor is being used because of its automatic straightning effect.
+
+\textit{Exercise: Can you think of a case where negative castor could be helpful?}
+
+\subsection{Camber}
+
+\begin{wrapfigure}{l}{0.37\textwidth}
+    \vspace{-6pt}
+    \centering
+    \includegraphics[width=0.39\textwidth]{centripital_rear_view.png}
+    \caption{rear view of front wheels}
+    \label{fig: turning tyre centripital camber}
+\end{wrapfigure}
+
+Camber is measured from the front view (refer to \ref{fig:camber} for details). Consider the same cornering scenario discussed above, where friction forces act on the tyre as shown. During a left-hand turn, weight transfers to the right-side wheel, making it the dominant load-bearing wheel with correspondingly higher frictional forces. The resulting force $F_{2c}$ generates a clockwise moment about the wheel center. This moment tends to rotate the wheel clockwise, which pushes the camber further toward the positive side (\textit{positive camber gain}).
+
+
+
+To counteract this unwanted positive camber gain, a slight \textbf{negative static camber} is typically set as a baseline. However, this is not the only solution -- the effect can also be countered by designing the suspension geometry to produce \textbf{negative camber gain}, a concept we will explore in the next part.
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.35\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth,keepaspectratio]{camber.png}
+        \caption{Camber: Front view}
+        \label{fig:camber_front_view}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth,keepaspectratio]{neg_camber_gain.png}
+        \caption{Negative camber gain}
+        \label{fig:turning_top_view}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth,keepaspectratio]{pos_camber_gain.png}
+        \caption{Positive camber gain}
+        \label{fig:wheel_patch_fbd}
+    \end{subfigure}
+    \caption{Camber geometry and camber gain: front view}
+    \label{fig:camber_front}
+\end{figure}
+
+\textbf{Camber Gain:} Bump refers to the upward travel of the wheel relative to the chassis (e.g., hitting a rise), while droop (or rebound) refers to its downward travel (e.g., into a dip/ pothole). The change in camber angle as the wheel travels through bump or droop is measured as camber gain.
+
+When a tyre encounters a bump, it moves upward and changes orientation --- inward or
+outward depending on the wishbone arm configuration. see the above figure ;
+
+\begin{itemize}
+    \item Camber moves toward negative on bump: \textbf{negative camber gain}.
+    \item Camber moves toward positive on bump: \textbf{positive camber gain}.
+\end{itemize}
+Ideally, we want such a god-given "perfect" camber gain behaviour, one that keeps the tyre perpendicular to the ground under every riding condition. In practice, however, this is nearly impossible to achieve. This is especially true for ATVs operating on highly dynamic terrain, where tuning and designing for optimal geometry becomes significantly more complex. The combined effects of bump travel, turning, acceleration, and braking on each suspension parameter must be considered together, rather than in isolation.
+
+Understanding these interdependencies, along with the expected riding conditions, is essential to designing an optimal suspension geometry. Moreover, in competitive settings where the riding conditions are known in advance, some of these parameters can be deliberately tuned or customized to suit that specific scenario.
+
+\section{Double Wishbone Mechanism}
+
+A double wishbone suspension uses two control arms (an upper and a lower wishbone) connecting the chassis to the knuckle, allowing the wheel to move up and down while the designer retains independent control over camber, toe, and caster through the geometry. This makes it one of the most tunable suspension layouts. The points at which these arms attaches to the chassis on one end and to the knuckle on the other are called hardpoints, and their positions are the primary design variables that determine how the suspension behaves through its travel.
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.42\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{arm_travel.png}
+        \caption{Arm travel in 2D front view}
+        \label{fig: arm travel 2d front view}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.57\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{hardpoint_selection.png}
+        \caption{Hardpoint selection: graphical way}
+        \label{fig:hardpoint selection}
+    \end{subfigure}
+    \caption{Graphical (four-bar chain) approach to double wishbone kinematic analysis.}
+    \label{fig:double wishbone}
+\end{figure}
+
+Geometrically, a double wishbone suspension is essentially a four-bar chain. Here, $AB$ is the fixed link (the chassis mounting points), while $CD$ together with the knuckle forms the coupler link. One of the simplest ways to study this mechanism is through graphical analysis using hand-drawn diagrams. This approach has a limitation: t applies mainly to planar mechanisms, since a 2D diagram cannot capture a complete 3D analysis. Even so, many 3D suspension mechanisms can be reasonably approximated as 2D mechanisms, and graphical analysis still gives a good working understanding. It helps with key design decisions such as whether a arm length should be increased or reduced, whether an angle should change, and even where to place a hardpoint.
+
+Let us go through a simple walkthrough of the graphical analysis. Let $O$ be the centre of the wheel, and let triangle $OCD$ represent the coupler link. First, draw two dotted arcs centred at $A$ and $B$, with radii $AD$ and $BC$ respectively. Next, mark a point $D'$ on the lower arc. Now construct the corresponding transferred coupler link, $O'C'D'$, such that $C'$ lies on the upper arc. The vertical distance between $O$ and $O'$ gives the bump height, $H_b$. The change in orientation of $CD$ — that is, the angle between $CD$ and $C'D'$ — gives the camber gain, which can be positive or negative.
+With software such as CATIA, this type of analysis becomes very simple and convenient: the effect of changing a link length or angle can be checked instantly. Even so, it is helpful to build some intuition about these effects manually. For example, consider a case where $OCD$ becomes the shortest link and the mechanism satisfies Grashof's condition. In such a situation, $OCD$ behaves as a floating crank and can rotate fully. This scenario is undesirable and should not occur under any riding condition.
+
+Now consider the same analysis run in reverse. Suppose the position of $A$ and the lengths $AD$ and $CD$ are fixed, and we want to determine the optimal hardpoint position of $B$. Before applying any bump or droop constraints, the static position itself i.e., the position of $O$, $C$, and $D$ at ride height is first decided based on the desired ground clearance, track width, and other packaging requirements. typically we keep higher GC for ATV since they operate on
+uneven, off-road terrain. Once this static position is fixed, we then look for a position of $B$ that gives the desired camber behaviour during suspension travel.
+For example (see figure (b)), suppose we desire a camber change of $-5^\circ$ when the wheel moves through a bump of 5 cm. The transformed point $O'$ will then lie at a vertical distance of 5 cm, and the transformed line $D'O'$ will sit at $-5^\circ$ relative to the static position. Many positions of $B$, lying on the line perpendicular to chord $CC'$, satisfy this requirement. Similarly, consider a other one: a positive camber gain of $+2^\circ$ when the wheel droops by 5 cm. Again, many positions of $B$ satisfy this requirement on its own. Where the two possible regions for $B$ overlap, that overlapping region can be considered the optimal zone for locating hardpoint $B$, since it satisfies both requirements simultaneously.
+Here we have considered only camber; however, using suitable software, the same approach can be extended on other suspension parameters such as toe and caster. The same iterative approach can then be applied to the other hardpoints. By layering multiple constraints simultaneously, we can gradually narrow down the possible regions and arrive at optimal hardpoint positions that provide the desired suspension behaviour. This essentially concludes the graphical approach to designing and analysing a double wishbone suspension as a four-bar chain mechanism.
+
+A more general and precise approach for analysing a 3D mechanism is to use vectors: defining a coordinate system and representing all hardpoints as 3D position vectors. This approach was initially attempted here, but it quickly became quite complex. Moreover, it is not always necessary to perform these calculations explicitly, since many software tools are available that can handle the underlying 3D geometry and kinematic analysis for us.
+
+\section{Conclusion}
+In this article, we have tried to build an intuitive understanding of suspension geometry and the thought process behind designing a double wishbone suspension. We started with the basic suspension parameters - camber, toe, kingpin, scrub radius, castor - and discussed why they matter and how they influence vehicle behaviour, using free-body diagrams and physical reasoning to understand their effects during braking, cornering, acceleration, and bump/droop travel. Finally, we looked at the double wishbone as a four-bar mechanism and explored how graphical analysis can be used to study camber gain and determine suitable hardpoint locations.
+
+However, this article covers only part of the complete suspension-design problem. We have not covered the detailed force analysis and structural design of components such as wishbones and ball joints - determining design loads, performing FBD analysis, calculating stresses and deflections, and selecting materials are all separate, important parts of suspension design. We have also left out spring and damper selection and suspension dynamics, which involve spring rates, damping coefficients, motion ratio, natural frequency, sprung and unsprung masses, ride comfort, and the interaction between suspension, road, and vehicle body - topics that require a separate treatment using dynamic analysis.
+
+The purpose here was not to give a set of numbers to copy into a vehicle design, but to develop the intuition needed for suspension design: start from the desired vehicle behaviour, identify the forces and constraints involved, understand how each geometric parameter affects that behaviour, and iteratively arrive at a geometry that satisfies the required conditions.
+There is still a lot more to learn, and if you are designing a suspension for your own vehicle, I would strongly encourage you to study the topics we have left out. And remember, designing is an iterative process - you will make designs that don't work, find unexpected results, go back to the drawing board, and try again. That is part of engineering. So take what you have learned here, go deeper into the other topics, question the assumptions, draw your own FBDs, build your own models, and most importantly, keep experimenting.
+
+\textit{All the best with your suspension design! Enjoy the process of turning ideas, diagrams and equations into a real suspension system.}
+
+\appendix
+\section{Appendix: Further Reading and Tools}
+
+This appendix lists some resources and software tools that are useful for going deeper into suspension design, beyond the scope of this article.
+
+\subsection*{Recommended Books}
+
+\begin{itemize}
+    \item \textbf{\textit{Fundamentals of Vehicle Dynamics}} by Thomas D. Gillespie --- a strong theoretical foundation for ride, handling, and dynamic behaviour of vehicles.
+    \item \textbf{\textit{Chassis Engineering}} by Herb Adams --- a beginner-friendly introduction to chassis and suspension design principles, with practical design guidelines.
+    \item \textbf{\textit{Automobile Engineering}} by Kirpal Singh --- useful for building a broader understanding of automobile systems and the fundamentals of suspension.
+\end{itemize}
+
+\subsection*{Software Tools}
+
+\begin{itemize}
+    \item \textbf{MSC ADAMS / ADAMS Car} --- industry-standard multibody dynamics software used for simulating suspension kinematics, hardpoint optimization.
+    \item \textbf{Lotus Suspension Analysis Shark (Lotus SHARK)} --- a dedicated suspension analysis tool, useful for quick geometric studies of camber, toe, and roll-centre behaviour.
+    \item \textbf{CATIA} --- used for 3D CAD modelling of suspension components, hardpoint layout, and packaging studies within the vehicle assembly.
+    \item \textbf{SolidWorks} --- an alternative CAD platform for component design and basic motion/kinematic studies with additional capabilities of structural analysis.
+    \item \textbf{ANSYS} --- used for structural analysis (FEA) of suspension components such as wishbones, uprights, and mounting brackets, including stress, deflection, and fatigue studies.
+\end{itemize}
+
+\textit{Note: This list reflects tools commonly used in the industry and in student/ATV competition settings. It is not exhaustive, and equivalent open-source or alternative commercial tools exist for most of these purposes.}
+
+\end{document}
